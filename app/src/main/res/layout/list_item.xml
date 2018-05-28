@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants">
+
+    <ImageView
+        android:id="@+id/musCover"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:id="@+id/musTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/musCover"
+        android:clickable="false"
+        android:focusable="false"
+        android:lines="1"
+        android:text="Country Nameg"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/musCover"
+        android:layout_alignLeft="@+id/musTitle"
+        android:layout_alignStart="@+id/musTitle"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:textSize="11sp"
+        android:text="Population: ..."
+        android:focusable="false"
+        android:clickable="false"
+        android:lines="1"
+        />
+
+
+    <Button
+        android:id="@+id/specBut"
+        android:layout_width="16dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/specSign"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="5dp"
+        />
+
+    <ImageView
+        android:id="@+id/specSign"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_alignBottom="@+id/musCover"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp" />
+
+    <TextView
+        android:id="@+id/tvDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/musCover"
+        android:layout_marginEnd="5dp"
+        android:layout_toStartOf="@+id/specBut"
+        android:text="Duration"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:focusable="false"
+        android:clickable="false"
+        />
+
+</RelativeLayout>

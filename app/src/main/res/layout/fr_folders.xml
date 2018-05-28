@@ -1,0 +1,15 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#40ae57"
+    tools:context="com.example.vadim.muscloud.Tabs.AllSongsFragment">
+
+    <ListView
+        android:id="@+id/arList_folders"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="2"
+        android:drawSelectorOnTop="false" />
+
+</FrameLayout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+
+    >
+
+    <Button
+    android:id="@+id/btn_open"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="invisible" />
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_weight="1"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginRight="80dp"
+    android:layout_marginLeft="80dp"
+    android:layout_gravity="bottom"
+    android:orientation="horizontal">
+
+        <Button
+        android:id="@+id/btn_random"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:drawable/ic_menu_help"
+        android:backgroundTint="#ffffff"
+        android:textAllCaps="false" />
+
+        <Button
+        android:id="@+id/btn_prev"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:drawable/ic_media_rew"
+            android:backgroundTint="#ffffff"
+            />
+
+        <Button
+        android:id="@+id/btn_play"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:drawable/ic_media_play"
+            android:backgroundTint="#ffffff" />
+
+        <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:drawable/ic_media_ff"
+            android:backgroundTint="#ffffff" />
+
+        <Button
+        android:id="@+id/btn_loop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:drawable/ic_popup_sync"
+            android:backgroundTint="#ffffff" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/ActionSettings"
+        android:title="Chtoto"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/ActionSearch"
+        android:title="pizdatoe"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/ActionExit"
+        android:title="Sign out"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/update"
+        android:icon="@android:drawable/ic_popup_sync"
+        android:title="Update"
+        app:showAsAction="always">
+    </item>
+</menu>
