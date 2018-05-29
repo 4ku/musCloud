@@ -21,7 +21,6 @@ import com.example.vadim.muscloud.Authentification.SharedPreferencesHelper;
 import com.example.vadim.muscloud.Entities.Playlist;
 import com.example.vadim.muscloud.Entities.PlaylistManager;
 import com.example.vadim.muscloud.Entities.Song;
-import com.example.vadim.muscloud.PlayerFragment;
 import com.example.vadim.muscloud.R;
 
 import java.io.File;
@@ -36,7 +35,7 @@ public class MusicListAdapter extends BaseAdapter {
     private Song curSong;
     private ListView contextListMenu;
 
-    private final String[] menuItems = new String[]{"Воспроизвести следующим", "Редактировать трек","Добавить в плейлист", "Удалить", "Информация" };
+    private final String[] menuItems = new String[]{"Play next", "Edit track","Add to playlist", "Remove", "Information" };
     private int curPos;
 
     public MusicListAdapter(Context aContext, List<Song> listData) {
@@ -63,7 +62,7 @@ public class MusicListAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.list_item, null);
+            convertView = layoutInflater.inflate(R.layout.item_custom_music_list, null);
             holder = new ViewHolder();
 
             holder.musCover = convertView.findViewById(R.id.musCover);
@@ -106,7 +105,7 @@ public class MusicListAdapter extends BaseAdapter {
             public void onClick(View v) {
 
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(context);
-                View contextMenuView =  layoutInflater.inflate(R.layout.music_item_menu,null);
+                View contextMenuView =  layoutInflater.inflate(R.layout.list_extra_music_item_actions,null);
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
                         android.R.layout.simple_list_item_1, menuItems);
@@ -148,15 +147,15 @@ public class MusicListAdapter extends BaseAdapter {
             AlertDialog songMenuDialog=(AlertDialog) getInfo.get(1);
 
 
-            if (selectedItem.equals("Воспроизвести следующим")) {
+            if (selectedItem.equals("Play next")) {
 
 
-            } else if (selectedItem.equals("Редактировать трек")) {
+            } else if (selectedItem.equals("Edit track")) {
 
-            } else if (selectedItem.equals("Добавить в плейлист")) {
+            } else if (selectedItem.equals("Add to playlist")) {
 
                     AlertDialog.Builder mBuilder = new AlertDialog.Builder(context);
-                    View propView =  layoutInflater.inflate(R.layout.music_item_menu,null);
+                    View propView =  layoutInflater.inflate(R.layout.list_extra_music_item_actions,null);
                     ListView lv=propView.findViewById(R.id.myListView);
                     ArrayList<String> names=new ArrayList<>();
                     PlaylistManager sh=new PlaylistManager(context);
@@ -168,13 +167,13 @@ public class MusicListAdapter extends BaseAdapter {
                     lv.setAdapter(adapter);
                     lv.setOnItemClickListener(onClickAddPlaylist);
 
-                    mBuilder.setMessage("Добавить в плейлист")
+                    mBuilder.setMessage("Add to playlist")
                             .setPositiveButton("Новый", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                    View addPlView =  layoutInflater.inflate(R.layout.new_playlist_dialog,null);
+                                    View addPlView =  layoutInflater.inflate(R.layout.dialog_new_playlist,null);
                                     final EditText et=addPlView.findViewById(R.id.enterNewPlaylistName);
-                                    builder.setMessage("Добавить в новый плейлист")
+                                    builder.setMessage("Add to new playlist")
                                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int id) {
                                                     if(!TextUtils.isEmpty(et.getText())) {
@@ -184,10 +183,10 @@ public class MusicListAdapter extends BaseAdapter {
 
                                                         PlaylistManager sh = new PlaylistManager(context);
                                                         if (sh.addPlaylist(newPlaylist)) {
-                                                            Toast.makeText(context, "Плейлист успешно добавлен", Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(context, "Playlist is successfully added", Toast.LENGTH_SHORT).show();
                                                             dialog.cancel();
                                                         } else
-                                                            Toast.makeText(context, "Плейлист с таким именем уже существует", Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(context, "Playlist is already exist with that name", Toast.LENGTH_SHORT).show();
                                                     }
                                                 }
                                             });
@@ -208,11 +207,11 @@ public class MusicListAdapter extends BaseAdapter {
 
                     dialog.show();
 
-            } else if (selectedItem.equals("Удалить"))  {
+            } else if (selectedItem.equals("Remove"))  {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setMessage("Удалить")
-                            .setPositiveButton("С плейлиста", new DialogInterface.OnClickListener() {
+                    builder.setMessage("Remove")
+                            .setPositiveButton("From playlist", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                    SharedPreferencesHelper sh = new SharedPreferencesHelper(context);
                                    sh.deleteSong(selectedSong);
@@ -220,7 +219,7 @@ public class MusicListAdapter extends BaseAdapter {
                                    notifyDataSetChanged();
                                 }
                             })
-                            .setNegativeButton("С устройства", new DialogInterface.OnClickListener() {
+                            .setNegativeButton("From device", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     // User cancelled the dialog
                                     SharedPreferencesHelper sh = new SharedPreferencesHelper(context);
@@ -234,9 +233,9 @@ public class MusicListAdapter extends BaseAdapter {
                             });
                    builder.create().show();
 
-            } else if (selectedItem.equals("Информация")) {
+            } else if (selectedItem.equals("Information")) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(context);
-                View propView =  layoutInflater.inflate(R.layout.music_item_menu,null);
+                View propView =  layoutInflater.inflate(R.layout.list_extra_music_item_actions,null);
                 ListView lv=propView.findViewById(R.id.myListView);
                 lv.setSelector(android.R.color.transparent);
                 lv.setAdapter(new PropertiesAdapter(context, selectedSong.getInfo()));
@@ -244,7 +243,7 @@ public class MusicListAdapter extends BaseAdapter {
                 mBuilder.setView(propView);
                 AlertDialog dialog= mBuilder.create();
                 dialog.show();
-            } else if (selectedItem.equals("Сохранить")) {
+            } else if (selectedItem.equals("Download")) {
 
             }
             songMenuDialog.cancel();

@@ -3,7 +3,6 @@ package com.example.vadim.muscloud.Tabs;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,7 @@ import android.widget.ListView;
 import com.example.vadim.muscloud.Authentification.SharedPreferencesHelper;
 import com.example.vadim.muscloud.Entities.Playlist;
 import com.example.vadim.muscloud.Extra.MusicListAdapter;
-import com.example.vadim.muscloud.OnBackPressedListener;
+import com.example.vadim.muscloud.Extra.OnBackPressedListener;
 import com.example.vadim.muscloud.PlayerFragment;
 import com.example.vadim.muscloud.R;
 import com.example.vadim.muscloud.Entities.Song;
@@ -45,10 +44,10 @@ public class AllSongsFragment extends Fragment implements OnBackPressedListener 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fr_all_songs, container, false);
-//        v.getBackground().
+        View v = inflater.inflate(R.layout.tab, container, false);
+         v.setBackgroundColor(Color.parseColor("#f0ff4646"));
 
-        songsListView = v.findViewById(R.id.arList_all_song);
+        songsListView = v.findViewById(R.id.tabListView);
         songsListView.setOnItemClickListener(adapterViewClick);
 
         mSharedPreferencesHelper = new SharedPreferencesHelper(getActivity());

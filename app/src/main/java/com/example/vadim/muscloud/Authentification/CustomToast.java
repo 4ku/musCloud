@@ -35,7 +35,6 @@ public class CustomToast {
 																		// and
 																		// Fill
 																		// Horizoontal
-
 		toast.setDuration(Toast.LENGTH_SHORT);// Set Duration
 		toast.setView(layout); // Set Custom View over toast
 

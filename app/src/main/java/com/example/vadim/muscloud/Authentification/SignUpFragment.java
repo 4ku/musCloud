@@ -38,7 +38,7 @@ public class SignUpFragment extends Fragment implements OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.signup_layout, container, false);
+		view = inflater.inflate(R.layout.fragment_signup, container, false);
 		initViews();
 		setListeners();
 		return view;

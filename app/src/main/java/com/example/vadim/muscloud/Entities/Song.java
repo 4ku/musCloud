@@ -115,17 +115,17 @@ public class Song implements Serializable {
         properties.add(new Pair<String, String>("Genre", genre));
         properties.add(new Pair<String, String>("Title", title));
         properties.add(new Pair<String, String>("Year", year));
-//        properties.put("File size", getSongSize());
-//        properties.put("Duration",this.duration);
-//        properties.put("Bit rate",bitRate);
-//        properties.put("Album name", albumName);
-//        properties.put("Album artist", albumArtist);
-//        properties.put("Artist", artist);
-//        properties.put("Author",author);
-//        properties.put("Composer",composer);
-//        properties.put("Genre",genre);
-//        properties.put("Title",title);
-//        properties.put("Year",year);
+//        item_music_properties.put("File size", getSongSize());
+//        item_music_properties.put("Duration",this.duration);
+//        item_music_properties.put("Bit rate",bitRate);
+//        item_music_properties.put("Album name", albumName);
+//        item_music_properties.put("Album artist", albumArtist);
+//        item_music_properties.put("Artist", artist);
+//        item_music_properties.put("Author",author);
+//        item_music_properties.put("Composer",composer);
+//        item_music_properties.put("Genre",genre);
+//        item_music_properties.put("Title",title);
+//        item_music_properties.put("Year",year);
 
         return properties;
     }

@@ -1,16 +1,19 @@
 package com.example.vadim.muscloud;
 
 import android.animation.ArgbEvaluator;
-import android.app.ActionBar;
-import android.content.res.ColorStateList;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.RippleDrawable;
+import android.media.audiofx.AudioEffect;
 import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -18,45 +21,80 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.vadim.muscloud.Authentification.AuthActivity;
 import com.example.vadim.muscloud.Authentification.SharedPreferencesHelper;
+import com.example.vadim.muscloud.Entities.AccountInfo;
+import com.example.vadim.muscloud.Entities.AccountState;
+import com.example.vadim.muscloud.Entities.AccountType;
 import com.example.vadim.muscloud.Entities.Playlist;
 import com.example.vadim.muscloud.Entities.PlaylistManager;
 import com.example.vadim.muscloud.Entities.Song;
+import com.example.vadim.muscloud.Entities.User;
+import com.example.vadim.muscloud.Extra.NavigationMenu;
+import com.example.vadim.muscloud.Extra.OnBackPressedListener;
 import com.example.vadim.muscloud.Extra.SectionsPagerAdapter;
+import com.example.vadim.muscloud.Tabs.AlbumsFragment;
 import com.example.vadim.muscloud.Tabs.AllSongsFragment;
+import com.example.vadim.muscloud.Tabs.ArtistsFragment;
 import com.example.vadim.muscloud.Tabs.FoldersFragment;
+import com.example.vadim.muscloud.Tabs.GenresFragment;
 import com.example.vadim.muscloud.Tabs.PlayListFragment;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 public class MusicActivity extends AppCompatActivity {
     final public static File MAIN_DIR = new File("/sdcard");
+    public static String intentMessage="USER";
+    public static boolean LoggedIn=false;
     private List<String> songPathes = new ArrayList<String>();
     private SharedPreferencesHelper mSharedPreferencesHelper;
 
-    SectionsPagerAdapter adapter;
-    TabLayout tabLayout;
+    private SectionsPagerAdapter adapter;
+    private TabLayout tabLayout;
+
+    private PlayerFragment playerFragment;
+    private DrawerLayout mDrawerLayout;
+
+    AccountInfo accountInfo;
+
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        setContentView(R.layout.ac_music);
+        setContentView(R.layout.activity_music);
+
+        if(getIntent()!=null && getIntent().getExtras()!=null) {
+            Bundle bundle = getIntent().getExtras();
+            User user = (User) bundle.get(intentMessage);
+            accountInfo=new AccountInfo(user.getLogin(), AccountType.free, AccountState.Active);
+        }
+
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(LoggedIn);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        NavigationMenu navBar = new NavigationMenu(this);
+        navBar.setupNavigationMenu(LoggedIn);
+
+
+        playerFragment = new PlayerFragment();
+        FragmentManager fragmentManager1 = getSupportFragmentManager();
+        fragmentManager1.beginTransaction()
+                .replace(R.id.musicPlayerFragment, playerFragment).commitAllowingStateLoss();
+
 
         final ViewPager viewPager = findViewById(R.id.viewpager);
         setUpViewPager(viewPager);
 
-        final Integer[] colors= new Integer[adapter.getCount()];
-//        final Integer[] colors= {Color.GREEN,Color.TRANSPARENT,Color.MAGENTA};
-        for(int i=0;i<adapter.getCount();i++ ) {
-            int color = Color.TRANSPARENT;
-//            Drawable background = adapter.getItem(i).getView().getBackground();
-//            if (background instanceof ColorDrawable)
-//                color = ((ColorDrawable) background).getColor();
-            colors[i]=color;
+        final Integer[] colors = new Integer[adapter.getCount()];
+        for (int i = 0; i < adapter.getCount(); i++) {
+            colors[i] = Color.TRANSPARENT;
         }
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -77,22 +115,28 @@ public class MusicActivity extends AppCompatActivity {
                             colors[position + 1] = ((ColorDrawable) background).getColor();
                     }
 
-                    int curColor=(Integer) (new ArgbEvaluator()).evaluate(positionOffset, colors[position], colors[position + 1]);
+                    int curColor = (Integer) (new ArgbEvaluator()).evaluate(positionOffset, colors[position], colors[position + 1]);
                     adapter.getItem(position).getView().setBackgroundColor(curColor);
                     if (tabView != null)
                         tabView.setBackgroundColor(curColor);
 
-                    float[] hsv = new float[3];
-                    Color.colorToHSV(curColor, hsv);
-                    hsv[2] *= 0.8f;
 
-                    changeTabsColor(curColor);
-                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.HSVToColor(hsv)));
+//                    changeTabsColor(curColor);
+                    playerFragment.getView().setBackgroundColor(darkenColor(curColor, 0.70f));
+                    tabLayout.setBackgroundColor(darkenColor(curColor, 0.90f));
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(darkenColor(curColor, 0.8f)));
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         getWindow().setStatusBarColor(curColor);
                     }
 
                 }
+            }
+
+            private int darkenColor(int color, float hue) {
+                float[] hsv = new float[3];
+                Color.colorToHSV(color, hsv);
+                hsv[2] *= hue;
+                return Color.HSVToColor(hsv);
             }
 
             @Override
@@ -104,56 +148,67 @@ public class MusicActivity extends AppCompatActivity {
             }
         });
 
-
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         mSharedPreferencesHelper = new SharedPreferencesHelper(this);
-        if(mSharedPreferencesHelper.getSongs().isEmpty())searchMusic(MAIN_DIR);
+        if (mSharedPreferencesHelper.getSongs().isEmpty()) searchMusic(MAIN_DIR);
     }
-private void changeTabsColor(int color){
-    for(int n = 0; n < tabLayout.getTabCount(); n++){
-        View tab = ((ViewGroup)tabLayout.getChildAt(0)).getChildAt(n);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if(tab != null && tab.getBackground() instanceof RippleDrawable){
-                RippleDrawable rippleDrawable = (RippleDrawable)tab.getBackground();
-                if (rippleDrawable != null) {
-                    rippleDrawable.setColor(ColorStateList.valueOf(color));
-                }
-            }
-        }
-    }
-}
-
 
     private void setUpViewPager(ViewPager p) {
         adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new AllSongsFragment(), "All songs");
         adapter.addFragment(new FoldersFragment(), "Folders");
         adapter.addFragment(new PlayListFragment(), "Playlists");
+        adapter.addFragment(new AlbumsFragment(), "Albums");
+        adapter.addFragment(new ArtistsFragment(), "Artists");
+        adapter.addFragment(new GenresFragment(), "Genres");
         p.setAdapter(adapter);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_music_activity, menu);
+        if(!LoggedIn){
+            menu.findItem(R.id.menu_profile).setVisible(false);
+            menu.findItem(R.id.menu_logout).setTitle("Authorize");
+        }
+            return super.onCreateOptionsMenu(menu);
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.ActionSettings:
+
+            case R.id.menu_profile:
+                Intent startAccountInfoIntent =
+                        new Intent(MusicActivity.this, AccountInfoActivity.class);
+                startAccountInfoIntent.putExtra(AccountInfoActivity.intentMessage,accountInfo.getLogin());
+                startActivity(startAccountInfoIntent);
+                this.finish();
+                break;
+
+            case R.id.menu_equalizer:
+                try {
+                    final Intent effects = new Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL);
+                    effects.putExtra(AudioEffect.EXTRA_AUDIO_SESSION,PlayerFragment.getAudioSessionId());
+                    startActivityForResult(effects, 666);
+                } catch (final ActivityNotFoundException notFound) {
+                    Toast.makeText(this, "Equalizer not found", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.menu_settings:
 
                 break;
 
-            case R.id.ActionSearch:
+            case R.id.menu_logout:
+                Intent startMusicIntent =
+                        new Intent(MusicActivity.this, AuthActivity.class);
+                startActivity(startMusicIntent);
+                this.finish();
 
                 break;
 
-            case R.id.ActionExit:
-                finish();
-                break;
             case R.id.update:
                 searchMusic(MAIN_DIR);
 
@@ -166,6 +221,11 @@ private void changeTabsColor(int color){
                 }
 
                 break;
+
+            case android.R.id.home: {
+                    mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+            }
             default:
                 break;
         }
@@ -213,6 +273,9 @@ private void changeTabsColor(int color){
     public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
         OnBackPressedListener backPressedListener = null;
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        }
         for (Fragment fragment: fm.getFragments()) {
 
             if (fragment instanceof  OnBackPressedListener &&  adapter.getItem(tabLayout.getSelectedTabPosition()).equals(fragment)) {
@@ -227,6 +290,9 @@ private void changeTabsColor(int color){
             super.onBackPressed();
         }
     }
+
+
+
 }
 
 

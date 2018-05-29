@@ -1,5 +1,6 @@
 package com.example.vadim.muscloud.Tabs;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,10 +14,10 @@ import com.example.vadim.muscloud.Entities.Playlist;
 import com.example.vadim.muscloud.Entities.Song;
 import com.example.vadim.muscloud.Extra.FolderListAdapter;
 import com.example.vadim.muscloud.Extra.MusicListAdapter;
+import com.example.vadim.muscloud.Extra.OnBackPressedListener;
 import com.example.vadim.muscloud.MusicActivity;
 import com.example.vadim.muscloud.PlayerFragment;
 import com.example.vadim.muscloud.R;
-import com.example.vadim.muscloud.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -54,7 +55,9 @@ public class FoldersFragment extends Fragment implements OnBackPressedListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fr_folders, container, false);
+        View v = inflater.inflate(R.layout.tab, container, false);
+        v.setBackgroundColor(Color.parseColor("#40ae57"));
+
         mSharedPreferencesHelper = new SharedPreferencesHelper(getActivity());
         curSongs=new ArrayList<Song>();
         directories =new ArrayList<String>();
@@ -83,7 +86,7 @@ public class FoldersFragment extends Fragment implements OnBackPressedListener {
 
         directories.addAll(map.keySet());
 
-        folderListView = v.findViewById(R.id.arList_folders);
+        folderListView = v.findViewById(R.id.tabListView);
         folderListView.setOnItemClickListener(adapterViewClick);
         folderListView.setAdapter(new FolderListAdapter(getActivity(), directories));
         return v;

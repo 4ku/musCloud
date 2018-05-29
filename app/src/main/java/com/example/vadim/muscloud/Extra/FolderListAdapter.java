@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.vadim.muscloud.Entities.Song;
 import com.example.vadim.muscloud.R;
 
 import java.io.File;
@@ -47,7 +46,7 @@ public class FolderListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.list_item, null);
+            convertView = layoutInflater.inflate(R.layout.item_custom_music_list, null);
             holder = new ViewHolder();
 
             holder.folderCover = convertView.findViewById(R.id.musCover);

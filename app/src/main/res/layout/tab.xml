@@ -1,12 +1,12 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f0ff4646"
-    tools:context="com.example.vadim.muscloud.Tabs.AllSongsFragment">
+    >
     <ListView
-        android:id="@+id/arList_all_song"
+        android:id="@+id/tabListView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:drawSelectorOnTop="false" />
 </FrameLayout>
+    <!--android:background="#f0ff4646"-->
+    <!--android:background="#40ae57"-->

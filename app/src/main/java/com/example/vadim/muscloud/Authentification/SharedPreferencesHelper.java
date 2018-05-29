@@ -13,21 +13,15 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Vadim on 30.04.2018.
- */
 
 public class SharedPreferencesHelper {
     public static final String SHARED_PREF_NAME = "SHARED_PREF_NAME";
     public static final String USERS_KEY = "USERS_KEY";
     public static final String SONG_KEY = "SONG_KEY";
-    public static final String PLAYLIST_KEY = "PLAYLIST_KEY";
 
     public static final Type USERS_TYPE = new TypeToken<List<User>>() {
     }.getType();
     public static final Type SONG_TYPE = new TypeToken<ArrayList<Song>>() {
-    }.getType();
-    public static final Type PLAYLIST_TYPE = new TypeToken<List<Playlist>>() {
     }.getType();
 
     protected SharedPreferences mSharedPreferences;

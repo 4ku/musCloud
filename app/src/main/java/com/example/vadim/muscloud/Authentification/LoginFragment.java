@@ -54,13 +54,12 @@ public class LoginFragment extends Fragment implements OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.login_layout, container, false);
+		view = inflater.inflate(R.layout.fragment_login, container, false);
 		initViews();
 		setListeners();
 		return view;
 	}
 
-	// Initiate Views
 	private void initViews() {
 		fragmentManager = getActivity().getSupportFragmentManager();
 
@@ -74,30 +73,15 @@ public class LoginFragment extends Fragment implements OnClickListener {
 				.findViewById(R.id.show_hide_password);
 		loginLayout = (LinearLayout) view.findViewById(R.id.login_layout);
 
-		// Load ShakeAnimation
 		shakeAnimation = AnimationUtils.loadAnimation(getActivity(),
 				R.anim.shake);
-
-		// Setting text selector over textviews
-		@SuppressLint("ResourceType") XmlResourceParser xrp = getResources().getXml(R.drawable.text_selector);
-		try {
-			ColorStateList csl = ColorStateList.createFromXml(getResources(),
-					xrp);
-
-			forgotPassword.setTextColor(csl);
-			show_hide_password.setTextColor(csl);
-			signUp.setTextColor(csl);
-		} catch (Exception e) {
-		}
 	}
 
-	// Set Listeners
 	private void setListeners() {
 		loginButton.setOnClickListener(this);
 		forgotPassword.setOnClickListener(this);
 		signUp.setOnClickListener(this);
 
-		// Set check listener over checkbox for showing and hiding password
 		show_hide_password
 				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -105,21 +89,15 @@ public class LoginFragment extends Fragment implements OnClickListener {
 					public void onCheckedChanged(CompoundButton button,
 							boolean isChecked) {
 
-						// If it is checkec then show password else hide
-						// password
 						if (isChecked) {
 
-							show_hide_password.setText(R.string.hide_pwd);// change
-																			// checkbox
-																			// text
+							show_hide_password.setText(R.string.hide_pwd);
 
 							password.setInputType(InputType.TYPE_CLASS_TEXT);
 							password.setTransformationMethod(HideReturnsTransformationMethod
 									.getInstance());// show password
 						} else {
-							show_hide_password.setText(R.string.show_pwd);// change
-																			// checkbox
-																			// text
+							show_hide_password.setText(R.string.show_pwd);
 
 							password.setInputType(InputType.TYPE_CLASS_TEXT
 									| InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -136,27 +114,27 @@ public class LoginFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.loginBtn:
-//			if(!checkValidation())break;
-
-//			User user = mSharedPreferencesHelper.login(
-//					email.getText().toString(),
-//					password.getText().toString());
-//			if (user != null) {
+			if(!checkValidation())break;
+			User user = mSharedPreferencesHelper.login(
+					email.getText().toString(),
+					password.getText().toString());
+			if (user != null) {
 				Intent startMusicIntent =
 						new Intent(getActivity(), MusicActivity.class);
+				startMusicIntent.putExtra(MusicActivity.intentMessage,user);
 				startActivity(startMusicIntent);
 				getActivity().finish();
+				MusicActivity.LoggedIn=true;
 
-//			} else {
-//				new CustomToast().Show_Toast(getActivity(), view,
-//						"Неверный логин или пароль");
-//			}
+			} else {
+				new CustomToast().Show_Toast(getActivity(), view,
+						"Incorrect login or password");
+			}
 
 			break;
 
 		case R.id.forgot_password:
 
-			// Replace forgot password fragment with animation
 			String tag = ForgotPasswordFragment.class.getName();
 
             fragmentManager
@@ -184,18 +162,13 @@ public class LoginFragment extends Fragment implements OnClickListener {
 		Toast.makeText(getActivity(), string, Toast.LENGTH_LONG).show();
 	}
 
-	// Check Validation before login
 	private boolean checkValidation() {
-		// Get email id and password
 		String getEmailId = email.getText().toString();
 		String getPassword = password.getText().toString();
 
-		// Check patter for email id
 		Pattern p = Pattern.compile(AuthActivity.regEx);
-
 		Matcher m = p.matcher(getEmailId);
 
-		// Check for both field is empty or not
 		if (getEmailId.equals("") || getEmailId.length() == 0
 				|| getPassword.equals("") || getPassword.length() == 0) {
 			loginLayout.startAnimation(shakeAnimation);
@@ -203,17 +176,12 @@ public class LoginFragment extends Fragment implements OnClickListener {
 					"Enter both credentials.");
 			return false;
 		}
-		// Check if email id is valid or not
 		else if (!m.find()) {
 			new CustomToast().Show_Toast(getActivity(), view,
 					"Your Email Id is Invalid.");
 			return false;
 		}
 		return true;
-		// Else do login and do your stuff
-//		else
-//			Toast.makeText(getActivity(), "Do Login.", Toast.LENGTH_SHORT)
-//					.show();
 
 	}
 }

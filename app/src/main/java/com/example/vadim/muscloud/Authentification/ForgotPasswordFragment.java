@@ -35,7 +35,7 @@ public class ForgotPasswordFragment extends Fragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.forgotpassword_layout, container,
+		view = inflater.inflate(R.layout.fragment_forgotpassword, container,
 				false);
 		initViews();
 		setListeners();
@@ -85,10 +85,13 @@ public class ForgotPasswordFragment extends Fragment implements
 			List<User> users = mSharedPreferencesHelper.getUsers();
 			for (User u : users) {
 				if (email.getText().toString().equalsIgnoreCase(u.getLogin())) {
-					Toast.makeText(getActivity(),"Ваш пароль:" + u.getPassword(),
+					Toast.makeText(getActivity(), "Your password:" + u.getPassword(),
 							Toast.LENGTH_SHORT).show();
+					return;
 				}
 			}
+			new CustomToast().Show_Toast(getActivity(), view,
+					"Your Email is not found");
 			break;
 
 		}

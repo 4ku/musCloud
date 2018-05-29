@@ -23,10 +23,11 @@ public class AuthActivity extends FragmentActivity {
     protected Fragment getFragment() {
         return AuthFragment.newInstance();
     }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ac_auth);
+        setContentView(R.layout.activity_authorization);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
            getWindow().setStatusBarColor(Color.BLACK);

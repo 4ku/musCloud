@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_phone"
+
+            android:title="Phone" />
+        <item
+            android:id="@+id/nav_musCloudLib"
+
+            android:title="musCloud Library" />
+        <item
+            android:id="@+id/nav_vk"
+            android:title="Vk" />
+        <item
+            android:id="@+id/nav_spotify"
+
+            android:title="Spotify" />
+        <item
+            android:id="@+id/nav_soundCloud"
+
+            android:title="SounCloud" />
+
+
+    </group>
+
+</menu>

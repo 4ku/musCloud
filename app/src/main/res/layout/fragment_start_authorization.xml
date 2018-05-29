@@ -29,23 +29,37 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="30dp"
         android:orientation="vertical">
         <Button
             android:id="@+id/buttonEnter"
             android:layout_width="228dp"
             android:layout_height="46dp"
             android:layout_gravity="center"
-            android:background="@drawable/round_button"
+            android:background="@drawable/loginbutton_selector"
+            android:textSize="17sp"
             android:text="@string/login_enter" />
         <Button
             android:id="@+id/buttonRegister"
             android:layout_width="228dp"
             android:layout_height="46dp"
             android:layout_gravity="center"
+            android:textSize="17sp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/round_button"
+            android:background="@drawable/loginbutton_selector"
             android:text="@string/register" />
+
+        <TextView
+            android:id="@+id/goOffline"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+
+            android:text="Go offline"
+            android:textColor="@drawable/text_selector"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <ImageView
@@ -64,11 +78,4 @@
         android:layout_below="@+id/musCloudLogo"
         android:layout_centerInParent="true"
         android:src="@drawable/mus_cloud_text" />
-    <!--<android.support.v7.widget.CardView-->
-        <!--android:layout_width="150dp"-->
-        <!--android:layout_height="30dp"-->
-        <!--app:cardCornerRadius="25dp"-->
-        <!--app:cardBackgroundColor="#fafc4c4c"-->
-        <!--app:cardElevation="10dp">-->
-    <!--</android.support.v7.widget.CardView>-->
 </RelativeLayout>

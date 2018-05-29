@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.vadim.muscloud.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PropertiesAdapter extends BaseAdapter {
@@ -43,7 +42,7 @@ public class PropertiesAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.properties, null);
+            convertView = layoutInflater.inflate(R.layout.item_music_properties, null);
             holder = new ViewHolder();
 
             holder.propName = convertView.findViewById(R.id.prop);

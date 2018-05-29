@@ -1,6 +1,7 @@
 package com.example.vadim.muscloud.Authentification;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -13,11 +14,12 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.VideoView;
 
+import com.example.vadim.muscloud.MusicActivity;
 import com.example.vadim.muscloud.R;
 
 public class AuthFragment extends Fragment {
@@ -27,7 +29,7 @@ public class AuthFragment extends Fragment {
     private Button mRegister;
     private SharedPreferencesHelper mSharedPreferencesHelper;
     ImageView musCloudText;
-
+    TextView tvGoOfline;
     VideoView videoview;
 
     public static AuthFragment newInstance() {
@@ -51,6 +53,8 @@ public class AuthFragment extends Fragment {
         }
     };
 
+
+
     private View.OnClickListener mOnRegisterClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -64,7 +68,16 @@ public class AuthFragment extends Fragment {
 
         }
     };
-
+    private View.OnClickListener mGoOvvlineClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent startMusicIntent =
+                    new Intent(getActivity(), MusicActivity.class);
+            startActivity(startMusicIntent);
+            getActivity().finish();
+            MusicActivity.LoggedIn=false;
+        }
+    };
 
     public void checkPermissions() {
         if (Build.VERSION.SDK_INT >= 23) {
@@ -78,31 +91,21 @@ public class AuthFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-//        switch (requestCode) {
-//            case MY_PERMISSIONS_REQUEST_READ_CONTACTS: {
-//                if (grantResults.length > 0
-//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                }
-//                return;
-//            }
-//        }
-//    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fr_auth, container, false);
+        View v = inflater.inflate(R.layout.fragment_start_authorization, container, false);
 
         mSharedPreferencesHelper = new SharedPreferencesHelper(getActivity());
 
         mEnter = v.findViewById(R.id.buttonEnter);
         mRegister = v.findViewById(R.id.buttonRegister);
         musCloudText = v.findViewById(R.id.musCloudTitle);
+        tvGoOfline=v.findViewById(R.id.goOffline);
 
         mEnter.setOnClickListener(mOnEnterClickListener);
         mRegister.setOnClickListener(mOnRegisterClickListener);
+        tvGoOfline.setOnClickListener(mGoOvvlineClickListener );
        
         checkPermissions();
 

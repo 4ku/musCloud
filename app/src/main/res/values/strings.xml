@@ -1,18 +1,18 @@
 <resources>
     <string name="app_name">musCloud</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="login_hint">Логин</string>
-    <string name="password">Пароль</string>
-    <string name="password_enter">Введите пароль</string>
-    <string name="password_enter_again">Введите пароль ещё раз</string>
-    <string name="login_enter">Войти</string>
-    <string name="register">Зарегистрироваться</string>
-    <string name="input_error">Ошибка ввода данных!</string>
+    <string name="login_hint">Login</string>
+    <string name="password">Password</string>
+    <string name="password_enter">Enter password</string>
+    <string name="password_enter_again">Enter password again</string>
+    <string name="login_enter">Login</string>
+    <string name="register">Sign up</string>
+    <string name="input_error">Error data!</string>
     <string name="email">Email</string>
-    <string name="login_register_error">Login уже занят!</string>
-    <string name="login_register_success">Успешно!</string>
-    <string name="logout">Логаут</string>
-    <string name="login_error">Неверный логин или пароль.</string>
+    <string name="login_register_error">Login is busy! :)</string>
+    <string name="login_register_success">Success!</string>
+    <string name="logout">Logout</string>
+    <string name="login_error">Incorrect login or password</string>
 
 
 
@@ -35,4 +35,23 @@
     <string name="registered_emailid">Please enter your Registered Email below:</string>
     <string name="submit">SUBMIT</string>
     <string name="back">BACK</string>
+
+
+
+    <string name="songs">Songs</string>
+    <string name="albums">Albums</string>
+    <string name="artists">Artists</string>
+    <string name="library">Library</string>
+    <string name="playlists">Playlists</string>
+    <string name="playing_queue">Playing Queue</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="help_and_feedback">Help and Feedback</string>
+    <string name="search">Search</string>
+    <string name="action_shuffle_all">Shuffle All</string>
+    <string name="action_equalizer">Equalizer</string>
+    <string name="search_library">Search Library</string>
+    <string name="folders">Folders</string>
+
 </resources>

@@ -2,16 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/ActionSettings"
-        android:title="Chtoto"
+        android:id="@+id/menu_profile"
+        android:title="Profile"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/ActionSearch"
-        android:title="pizdatoe"
+        android:id="@+id/menu_equalizer"
+        android:title="Equalizer"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/ActionExit"
-        android:title="Sign out"
+        android:id="@+id/menu_settings"
+        android:title="Settings"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_logout"
+        android:title="Logout"
         app:showAsAction="never"/>
     <item
         android:id="@+id/update"

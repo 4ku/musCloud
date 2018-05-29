@@ -3,39 +3,24 @@ package com.example.vadim.muscloud.Tabs;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.example.vadim.muscloud.Authentification.SharedPreferencesHelper;
 import com.example.vadim.muscloud.Entities.Playlist;
 import com.example.vadim.muscloud.Entities.PlaylistManager;
 import com.example.vadim.muscloud.Entities.Song;
-import com.example.vadim.muscloud.Extra.FolderListAdapter;
-import com.example.vadim.muscloud.Extra.MusicListAdapter;
 import com.example.vadim.muscloud.Extra.PlaylistAdapter;
 import com.example.vadim.muscloud.Extra.RecyclerItemClickListener;
-import com.example.vadim.muscloud.OnBackPressedListener;
-import com.example.vadim.muscloud.PlayerFragment;
+import com.example.vadim.muscloud.Extra.OnBackPressedListener;
 import com.example.vadim.muscloud.R;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class PlayListFragment extends Fragment implements OnBackPressedListener {
@@ -51,7 +36,7 @@ public class PlayListFragment extends Fragment implements OnBackPressedListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fr_play_list, container, false);
+        View v = inflater.inflate(R.layout.fragment_playlist, container, false);
         playlistManager = new PlaylistManager(getActivity());
         curSongs=new ArrayList<Song>();
         playlists =new ArrayList<Playlist>();
