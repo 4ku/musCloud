@@ -16,7 +16,7 @@ public class AccountInfoActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_info);
-        tvLogin=findViewById(R.id.tvAcInfo);
+        tvLogin=findViewById(R.id.tvEmail);
 
         if(getIntent()!=null && getIntent().getExtras()!=null) {
             Bundle bundle = getIntent().getExtras();

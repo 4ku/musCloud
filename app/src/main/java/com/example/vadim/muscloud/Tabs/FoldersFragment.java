@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.vadim.muscloud.AudioPlayer;
 import com.example.vadim.muscloud.Authentification.SharedPreferencesHelper;
 import com.example.vadim.muscloud.Entities.Playlist;
 import com.example.vadim.muscloud.Entities.Song;
@@ -16,7 +17,6 @@ import com.example.vadim.muscloud.Extra.FolderListAdapter;
 import com.example.vadim.muscloud.Extra.MusicListAdapter;
 import com.example.vadim.muscloud.Extra.OnBackPressedListener;
 import com.example.vadim.muscloud.MusicActivity;
-import com.example.vadim.muscloud.PlayerFragment;
 import com.example.vadim.muscloud.R;
 
 import java.io.File;
@@ -40,7 +40,8 @@ public class FoldersFragment extends Fragment implements OnBackPressedListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             if(inSongs){
-                PlayerFragment.setPlaylist(curPlaylist, position);
+                AudioPlayer.setPlaylist(curPlaylist, position);
+                AudioPlayer.play_pause();
             } else{
                 File clickedFile = new File(directories.get(position));
                 if (clickedFile != null) {

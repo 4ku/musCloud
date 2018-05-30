@@ -14,10 +14,10 @@ import com.example.vadim.muscloud.Entities.Playlist;
 
 import java.io.IOException;
 
-public class PlayerFragment extends Fragment implements MediaPlayer.OnPreparedListener{
+public class AudioPlayer extends Fragment implements MediaPlayer.OnPreparedListener{
     private static Playlist curPlaylist = null;
     private static MediaPlayer mediaPlayer = new MediaPlayer();
-    private Button prev, play, next;
+    private static Button prev, play, next;
     private static int curIndex;
 
 
@@ -36,7 +36,8 @@ public class PlayerFragment extends Fragment implements MediaPlayer.OnPreparedLi
                 @Override
                 public void onClick(View view) {
                 releaseMP();
-                curIndex -= 1;
+
+                    curIndex -= 1;
                 if (curIndex < 0) {
                     curIndex = curPlaylist.size() - 1;
                 }
@@ -83,7 +84,6 @@ public class PlayerFragment extends Fragment implements MediaPlayer.OnPreparedLi
         });
 
         mediaPlayer = new MediaPlayer();
-        //mediaPlayer.setOnCompletionListener(this);
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         return v;
     }
@@ -140,12 +140,21 @@ public class PlayerFragment extends Fragment implements MediaPlayer.OnPreparedLi
             e.printStackTrace();
         }
     }
+    public static void play_pause(){
+        play.callOnClick();
+    }
+    public static void next(){
+        next.callOnClick();
+    }
+    public static void prev(){
+        prev.callOnClick();
+    }
 
     private static void releaseMP() {
         if (mediaPlayer != null) {
             try {
                 mediaPlayer.release();
-                mediaPlayer = null;
+                mediaPlayer = new MediaPlayer();
             } catch (Exception e) {
                 e.printStackTrace();
             }

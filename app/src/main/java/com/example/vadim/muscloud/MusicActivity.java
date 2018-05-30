@@ -58,10 +58,10 @@ public class MusicActivity extends AppCompatActivity {
     private SectionsPagerAdapter adapter;
     private TabLayout tabLayout;
 
-    private PlayerFragment playerFragment;
+    private AudioPlayer playerFragment;
     private DrawerLayout mDrawerLayout;
 
-    AccountInfo accountInfo;
+    private static AccountInfo accountInfo;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -83,7 +83,7 @@ public class MusicActivity extends AppCompatActivity {
         navBar.setupNavigationMenu(LoggedIn);
 
 
-        playerFragment = new PlayerFragment();
+        playerFragment = new AudioPlayer();
         FragmentManager fragmentManager1 = getSupportFragmentManager();
         fragmentManager1.beginTransaction()
                 .replace(R.id.musicPlayerFragment, playerFragment).commitAllowingStateLoss();
@@ -170,7 +170,7 @@ public class MusicActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_music_activity, menu);
         if(!LoggedIn){
             menu.findItem(R.id.menu_profile).setVisible(false);
-            menu.findItem(R.id.menu_logout).setTitle("Authorize");
+//            menu.findItem(R.id.menu_exit).setTitle("Authorize");
         }
             return super.onCreateOptionsMenu(menu);
 
@@ -191,7 +191,7 @@ public class MusicActivity extends AppCompatActivity {
             case R.id.menu_equalizer:
                 try {
                     final Intent effects = new Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL);
-                    effects.putExtra(AudioEffect.EXTRA_AUDIO_SESSION,PlayerFragment.getAudioSessionId());
+                    effects.putExtra(AudioEffect.EXTRA_AUDIO_SESSION, AudioPlayer.getAudioSessionId());
                     startActivityForResult(effects, 666);
                 } catch (final ActivityNotFoundException notFound) {
                     Toast.makeText(this, "Equalizer not found", Toast.LENGTH_SHORT).show();
@@ -201,11 +201,12 @@ public class MusicActivity extends AppCompatActivity {
 
                 break;
 
-            case R.id.menu_logout:
-                Intent startMusicIntent =
-                        new Intent(MusicActivity.this, AuthActivity.class);
-                startActivity(startMusicIntent);
-                this.finish();
+            case R.id.menu_exit:
+//                Intent startMusicIntent =
+//                        new Intent(MusicActivity.this, AuthActivity.class);
+//                startActivity(startMusicIntent);
+//                this.finish();
+                finish();
 
                 break;
 

@@ -14,7 +14,7 @@ import com.example.vadim.muscloud.Authentification.SharedPreferencesHelper;
 import com.example.vadim.muscloud.Entities.Playlist;
 import com.example.vadim.muscloud.Extra.MusicListAdapter;
 import com.example.vadim.muscloud.Extra.OnBackPressedListener;
-import com.example.vadim.muscloud.PlayerFragment;
+import com.example.vadim.muscloud.AudioPlayer;
 import com.example.vadim.muscloud.R;
 import com.example.vadim.muscloud.Entities.Song;
 
@@ -27,7 +27,6 @@ public class AllSongsFragment extends Fragment implements OnBackPressedListener 
     private ArrayList<Song> curSongs;
     private SharedPreferencesHelper mSharedPreferencesHelper;
     private ListView songsListView;
-//    public static int color= Color.parseColor("#FFFF4444");
 
     private AdapterView.OnItemClickListener adapterViewClick=new AdapterView.OnItemClickListener() {
         @Override
@@ -35,7 +34,8 @@ public class AllSongsFragment extends Fragment implements OnBackPressedListener 
             String selectedFileString = curSongs.get(position).getSongPath();
             File clickedFile = new File(selectedFileString);
             if (clickedFile != null) {
-                PlayerFragment.setPlaylist(curPlaylist, position);
+                AudioPlayer.setPlaylist(curPlaylist, position);
+                AudioPlayer.play_pause();
             }
         }
     };

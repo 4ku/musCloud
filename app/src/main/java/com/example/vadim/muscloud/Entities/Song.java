@@ -8,10 +8,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-enum AudioFileFormat {
-    mp3, wav
-}
-
 public class Song implements Serializable {
 
     private String title;

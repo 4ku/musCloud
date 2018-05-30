@@ -36,7 +36,7 @@
 
         <!--<fragment-->
             <!--android:id="@+id/frPlayer"-->
-            <!--class="com.example.vadim.muscloud.PlayerFragment"-->
+            <!--class="com.example.vadim.muscloud.AudioPlayer"-->
             <!--layout="@layout/fragment_player"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="match_parent"-->
